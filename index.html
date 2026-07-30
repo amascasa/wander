@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width,
+               initial-scale=1,
+               viewport-fit=cover">
+
+<title>Wander</title>
+
+<meta name="description"
+      content="Wander travel discovery engine">
+
+<meta name="theme-color"
+      content="#000000">
+
+
+<link rel="manifest" href="manifest.json">
+
+<link rel="icon" href="icons/icon-192.png">
+
+<link rel="apple-touch-icon"
+      href="icons/icon-192.png">
+
+
+<link rel="stylesheet"
+      href="src/css/style.css">
+
+<link rel="stylesheet"
+      href="src/css/media.css?v=101">
+
+
+<script type="module" src="./src/js/boot.js?v=101"></script>
+
+<script type="module" src="./src/js/home.js"></script>
+
+
+<style>
+
+#wander-search {
+
+    padding:20px;
+    text-align:center;
+    background:black;
+    color:white;
+
+}
+
+#origin {
+
+    width:100px;
+    text-align:center;
+    font-size:1.4rem;
+    padding:8px;
+    border-radius:8px;
+    border:1px solid grey;
+    color:white;
+    background:rgba(21,146,200,.485);
+
+}
+
+#wander-button {
+
+    margin-left:10px;
+    padding:10px 20px;
+    font-size:1.1rem;
+    border-radius:8px;
+
+}
+
+.flight-card {
+
+    padding:15px;
+    border-radius:12px;
+    cursor:pointer;
+
+}
+
+#region-modal {
+
+    display:none;
+    position:fixed;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+    background:rgba(0,0,0,.85);
+    z-index:5000;
+    padding:20px;
+
+}
+
+#modal-content {
+
+    background:#111;
+    color:white;
+    height:90vh;
+    margin-top:5vh;
+    border-radius:20px;
+    padding:20px;
+    overflow:auto;
+    border:1px solid #333;
+    position:relative;
+
+}
+
+#modal-close {
+
+    position:absolute;
+    top:15px;
+    right:20px;
+    font-size:28px;
+    background:none;
+    color:white;
+    border:none;
+    cursor:pointer;
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div class="app">
+
+<section class="view active" data-view="home">
+
+    <section id="wander-search">
+
+        <input id="origin"
+               value="LAX"
+               maxlength="3">
+
+        <button id="wander-button"
+                onclick="loadDiscoverFlights()">
+
+            Wander
+
+        </button>
+
+    </section>
+
+    <div id="home-grid">
+
+        <div id="overall" class="region"></div>
+
+        <div id="usa" class="region"></div>
+
+        <div id="europe" class="region"></div>
+
+        <div id="asia" class="region"></div>
+
+        <div id="africa" class="region"></div>
+
+    </div>
+
+</section>
+
+<nav>
+
+    <a href="#" data-go="home" class="active">
+        ✈️  <span>Wander</span>
+    </a>
+
+    <a href="#" data-go="explore">
+        🧭 <span>ToAirport</span>
+    </a>
+
+    <a href="#" data-go="fares">
+        ✈️ <span>City</span>
+    </a>
+
+    <a href="#" data-go="trips">
+        🧳 <span>Wanderd</span>
+    </a>
+
+    <a href="#" data-go="settings">
+        ⚙️ <span>Settings</span>
+    </a>
+
+</nav>
+
+</div>
+
+
+<!-- REGION MODAL -->
+
+<div id="region-modal">
+
+    <div id="modal-content">
+
+        <button id="modal-close">✕</button>
+
+        <div id="modal-details"></div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+function loadDiscoverFlights() {
+
+    const origin =
+        document
+        .getElementById("origin")
+        .value
+        .toUpperCase();
+
+    fetch(`api/discover.php?origin=${origin}`)
+
+        .then(response => response.json())
+
+        .then(data => {
+
+            renderOverall(data);
+
+            renderRegion(
+                "usa",
+                data.regions.usa
+            );
+
+            renderRegion(
+                "europe",
+                data.regions.europe
+            );
+
+            renderRegion(
+                "asia",
+                data.regions.asia
+            );
+
+            renderRegion(
+                "africa",
+                data.regions.africa
+            );
+
+        })
+
+        .catch(error => {
+
+            console.error(error);
+
+            document.getElementById("overall").innerHTML = `
+                <h2>Error Loading Wander</h2>
+                <p>${error.message}</p>
+            `;
+
+        });
+
+}
+
+
+function renderOverall(data) {
+
+    const div =
+        document.getElementById("overall");
+
+    const flight =
+        data.cheapest_overall;
+
+    if(!flight){
+
+        div.innerHTML = `
+            <h2>No Overall Recommendation</h2>
+        `;
+
+        return;
+
+    }
+
+    div.innerHTML = `
+        <h2>🌎  🌎 </h2>
+
+        <div class="flight-card">
+
+            <h3>
+                ${flight.city}
+            </h3>
+
+            <p>
+                ${flight.country}
+            </p>
+
+            <p>
+                $${flight.amount}
+                ${flight.currency}
+            </p>
+
+        </div>
+    `;
+
+}
+
+
+function renderRegion(id, flights) {
+    const titles = {
+
+        domestic: "USA",
+
+        europe: "Europe",
+
+        asia: "Asia",
+
+        africa: "Africa"
+
+};
+    const div =
+        document.getElementById(id);
+
+    if(!flights || flights.length===0){
+
+        div.innerHTML = `
+           <h2>${titles[id]}</h2>
+            <p>No flights found</p>
+        `;
+
+        return;
+
+    }
+
+    const flight = flights[0];
+
+    div.innerHTML = `
+        <h2>
+            ${id.toUpperCase()}
+        </h2>
+
+        <div class="flight-card"
+             onclick="openRegionModal('${id}', '${flight.city}', '${flight.country}', '${flight.amount}')">
+
+            <h3>
+                ${flight.city}
+            </h3>
+
+            <p>
+                ${flight.country}
+            </p>
+
+            <p>
+                $${flight.amount}
+                ${flight.currency}
+            </p>
+
+          
+
+        </div>
+    `;
+
+    console.log(flight);
+
+}
+
+
+function openRegionModal(region, city, country, amount){
+
+    const modal =
+        document.getElementById("region-modal");
+
+    const details =
+        document.getElementById("modal-details");
+
+    details.innerHTML = `
+        <h2>${city}</h2>
+        <p>${country}</p>
+
+        <div class="flight-card">
+            <h3>$${amount}</h3>
+            <p>Cheapest flight in ${region.toUpperCase()}</p>
+        </div>
+    `;
+
+    modal.style.display="block";
+
+}
+
+
+document
+    .getElementById("modal-close")
+    .addEventListener("click",()=>{
+
+        document
+            .getElementById("region-modal")
+            .style.display="none";
+
+    });
+
+
+loadDiscoverFlights();
+
+</script>
+
+</body>
+</html>

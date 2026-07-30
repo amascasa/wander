@@ -1,0 +1,291 @@
+/*==============================================================
+    PHI CORE v0.5
+    COMPONENTS
+==============================================================*/
+
+
+/*==============================================================
+    TOAST NOTIFICATIONS
+==============================================================*/
+
+.phi-toast{
+
+    position:fixed;
+
+    left:50%;
+    bottom:calc(90px + env(safe-area-inset-bottom));
+
+    transform:translateX(-50%) translateY(20px);
+
+    background:rgba(20,20,20,0.95);
+
+    color:white;
+
+    padding:12px 16px;
+
+    border-radius:14px;
+
+    font-size:0.9rem;
+
+    opacity:0;
+
+    pointer-events:none;
+
+    transition:all 0.25s ease;
+
+    z-index:9999;
+
+    max-width:80%;
+
+    text-align:center;
+
+    backdrop-filter: blur(10px);
+
+}
+
+
+/* toast visible state */
+
+.phi-toast.show{
+
+    opacity:1;
+
+    transform:translateX(-50%) translateY(0);
+
+}
+
+
+/*==============================================================
+    DIALOG OVERLAY
+==============================================================*/
+
+.phi-dialog-overlay{
+
+    position:fixed;
+
+    inset:0;
+
+    background:rgba(0,0,0,0.6);
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    z-index:10000;
+
+    animation:fadeIn 0.2s ease;
+
+}
+
+
+/*==============================================================
+    DIALOG BOX
+==============================================================*/
+
+.phi-dialog-box{
+
+    background:var(--surface);
+
+    color:var(--text);
+
+    padding:20px;
+
+    border-radius:18px;
+
+    width:85%;
+
+    max-width:420px;
+
+    box-shadow:0 10px 30px rgba(0,0,0,0.5);
+
+    animation:popIn 0.2s ease;
+
+}
+
+
+/*==============================================================
+    ANIMATIONS
+==============================================================*/
+
+@keyframes fadeIn{
+
+    from{ opacity:0; }
+
+    to{ opacity:1; }
+
+}
+
+@keyframes popIn{
+
+    from{
+
+        transform:scale(0.95);
+
+        opacity:0;
+
+    }
+
+    to{
+
+        transform:scale(1);
+
+        opacity:1;
+
+    }
+
+}
+
+
+/*==============================================================
+    OFFLINE STATE
+==============================================================*/
+
+body.offline::before{
+
+    content:"Offline Mode";
+
+    position:fixed;
+
+    top:0;
+
+    left:0;
+
+    right:0;
+
+    padding:8px;
+
+    text-align:center;
+
+    background:#ff3b30;
+
+    color:white;
+
+    font-size:0.8rem;
+
+    z-index:99999;
+
+}
+
+
+
+/*==============================================================
+    PHI SPA VIEWS
+==============================================================*/
+
+.view{
+
+    display:none;
+
+    animation:fadeIn 0.2s ease;
+
+}
+
+.view.active{
+
+    display:block;
+
+}
+
+
+
+
+/*==============================================================
+    PHI SPA TRANSITIONS
+==============================================================*/
+
+.view{
+
+    display:none;
+
+    opacity:0;
+
+    transform:translateY(8px);
+
+    transition:opacity 0.25s ease, transform 0.25s ease;
+
+}
+
+.view.active{
+
+    display:block;
+
+    opacity:1;
+
+    transform:translateY(0);
+
+}
+
+
+
+
+/*==============================================================
+    PHI COMPONENTS
+==============================================================*/
+
+
+/* CARD (enhanced) */
+
+.card{
+
+    background:var(--surface);
+
+    border:1px solid var(--border);
+
+    border-radius:16px;
+
+    padding:16px;
+
+    margin-bottom:16px;
+
+}
+
+
+/* BUTTON */
+
+.phi-btn{
+
+    background:var(--accent);
+
+    color:white;
+
+    border:none;
+
+    padding:12px 16px;
+
+    border-radius:12px;
+
+    font-size:1rem;
+
+    cursor:pointer;
+
+}
+
+
+/* LIST */
+
+.phi-list{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:10px;
+
+}
+
+
+/* LIST ITEM */
+
+.phi-list-item{
+
+    padding:12px;
+
+    background:var(--surface2);
+
+    border-radius:12px;
+
+    border:1px solid var(--border);
+
+}

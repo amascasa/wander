@@ -1,0 +1,173 @@
+/*==============================================================
+    MASCASA PWA STARTER KIT v2
+    MEDIA QUERIES
+==============================================================*/
+
+
+/*==============================================================
+    SMALL PHONES
+    (iPhone SE, older Android devices)
+==============================================================*/
+
+@media (max-width: 380px){
+
+    header h1{
+
+        font-size:1.6rem;
+
+    }
+
+    .hero h2{
+
+        font-size:1.4rem;
+
+    }
+
+    nav a{
+
+        font-size:1.1rem;
+
+    }
+
+    nav span{
+
+        font-size:.65rem;
+
+    }
+
+}
+
+
+/*==============================================================
+    LARGE PHONES
+==============================================================*/
+
+@media (min-width:600px){
+
+    main{
+
+        padding:30px;
+
+    }
+
+    .card{
+
+        padding:24px;
+
+    }
+
+}
+
+
+/*==============================================================
+    TABLETS
+==============================================================*/
+
+@media (min-width:768px){
+
+    header{
+
+        padding-top:40px;
+
+    }
+
+    header h1{
+
+        font-size:2.4rem;
+
+    }
+
+    .hero h2{
+
+        font-size:2rem;
+
+    }
+
+    nav{
+
+        max-width:900px;
+
+        margin:auto;
+
+        left:50%;
+
+        transform:translateX(-50%);
+
+        border-left:1px solid var(--border);
+
+        border-right:1px solid var(--border);
+
+        border-top-left-radius:20px;
+
+        border-top-right-radius:20px;
+
+    }
+
+}
+
+
+/*==============================================================
+    DESKTOP
+==============================================================*/
+
+@media (min-width:1024px){
+
+    .app{
+
+        border-left:1px solid var(--border);
+
+        border-right:1px solid var(--border);
+
+    }
+
+    main{
+
+        padding:40px;
+
+    }
+
+}
+
+
+/*==============================================================
+    LARGE DESKTOPS
+==============================================================*/
+
+@media (min-width:1440px){
+
+    :root{
+
+        --max-width:1000px;
+
+    }
+
+}
+
+
+/*==============================================================
+    LANDSCAPE PHONE
+==============================================================*/
+
+@media (max-height:500px) and (orientation:landscape){
+
+    header{
+
+        padding-top:12px;
+
+        padding-bottom:12px;
+
+    }
+
+    header h1{
+
+        font-size:1.4rem;
+
+    }
+
+    nav{
+
+        --nav-height:60px;
+
+    }
+
+}
