@@ -1,21 +1,23 @@
 # macOS
 .DS_Store
 
-# Environment variables
+# Secrets and environment variables
 .env
+.env.*
+
+# Dependencies
+node_modules/
 
 # Logs
 *.log
-
-# Dependency folders
-node_modules/
 
 # Build output
 dist/
 build/
 
-# Editor settings
-.vscode/settings.json
-
 # Temporary files
 *.tmp
+*.swp
+
+# VS Code machine-specific settings
+.vscode/settings.json
