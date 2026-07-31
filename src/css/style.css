@@ -146,6 +146,41 @@ button{
 
 }
 
+#wander-search {
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:10px;
+    padding:16px 12px;
+    background:#000;
+    border-bottom:1px solid #222;
+
+}
+
+#origin {
+
+    width:110px;
+    text-align:center;
+    font-size:1.1rem;
+    padding:8px;
+    border-radius:8px;
+    border:1px solid #4a4a4a;
+    color:#fff;
+    background:#1a1a1a;
+
+}
+
+#wander-button {
+
+    padding:10px 16px;
+    font-size:1rem;
+    border-radius:8px;
+    background:#1f8ecf;
+    color:#fff;
+
+}
+
 
 a{
 
