@@ -26,8 +26,6 @@ html{
 
 body{
 
-  
-
     min-height:100dvh;
 
     font-family:
@@ -39,7 +37,9 @@ body{
         Arial,
         sans-serif;
 
-    overflow:hidden;
+    overflow:auto;
+    background:#000;
+    color:#fff;
 
 }
 
@@ -49,12 +49,10 @@ body{
     display:flex;
 
     flex-direction:column;
-
-    height:100dvh;
-
+    min-height:100dvh;
     max-width:900px;
-
     margin:auto;
+    padding-bottom:calc(72px + env(safe-area-inset-bottom));
 
 }
 
@@ -185,6 +183,8 @@ nav{
     align-items:center;
 
     z-index:999;
+    background:rgba(0,0,0,0.95);
+    border-top:1px solid #222;
 
 }
 

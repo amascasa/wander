@@ -121,6 +121,24 @@
 
 }
 
+.region-list {
+
+    max-height:240px;
+    overflow-y:auto;
+    display:grid;
+    gap:8px;
+    margin-top:10px;
+    padding-right:4px;
+
+}
+
+.region-list .flight-card {
+
+    background:#1a1a1a;
+    border:1px solid #2b2b2b;
+
+}
+
 </style>
 
 </head>
@@ -305,7 +323,7 @@ function renderOverall(data) {
 function renderRegion(id, flights) {
     const titles = {
 
-        domestic: "USA",
+        usa: "USA",
 
         europe: "Europe",
 
@@ -313,14 +331,14 @@ function renderRegion(id, flights) {
 
         africa: "Africa"
 
-};
-    const div =
-        document.getElementById(id);
+    };
 
-    if(!flights || flights.length===0){
+    const div = document.getElementById(id);
+
+    if (!flights || flights.length === 0) {
 
         div.innerHTML = `
-           <h2>${titles[id]}</h2>
+            <h2>${titles[id] || id.toUpperCase()}</h2>
             <p>No flights found</p>
         `;
 
@@ -328,35 +346,21 @@ function renderRegion(id, flights) {
 
     }
 
-    const flight = flights[0];
-
-    div.innerHTML = `
-        <h2>
-            ${id.toUpperCase()}
-        </h2>
-
+    const listItems = flights.map(flight => `
         <div class="flight-card"
              onclick="openRegionModal('${id}', '${flight.city}', '${flight.country}', '${flight.amount}')">
 
-            <h3>
-                ${flight.city}
-            </h3>
-
-            <p>
-                ${flight.country}
-            </p>
-
-            <p>
-                $${flight.amount}
-                ${flight.currency}
-            </p>
-
-          
+            <h3>${flight.city}</h3>
+            <p>${flight.country}</p>
+            <p>$${flight.amount} ${flight.currency}</p>
 
         </div>
-    `;
+    `).join("");
 
-    console.log(flight);
+    div.innerHTML = `
+        <h2>${titles[id] || id.toUpperCase()}</h2>
+        <div class="region-list">${listItems}</div>
+    `;
 
 }
 
