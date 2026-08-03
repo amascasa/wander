@@ -3,7 +3,7 @@
 function loadEnv($path)
 {
     if (!file_exists($path)) {
-        return;
+        die("Missing .env file at: " . $path);
     }
 
     $lines = file($path, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
@@ -24,5 +24,5 @@ $duffelToken = $_ENV['DUFFEL_ACCESS_TOKEN'] ?? null;
 $duffelVersion = $_ENV['DUFFEL_API_VERSION'] ?? 'v2';
 
 if (!$duffelToken) {
-    error_log('DUFFEL_ACCESS_TOKEN is not configured; using local/mock behavior.');
+    die("DUFFEL_ACCESS_TOKEN is missing from .env");
 }
